@@ -14,18 +14,10 @@ public class Todojob {
     private String id;
     private String title;
     private String description;
-    private Date createTime;
+    private final Date createTime;
     private Date lastModified;
     private long score;
-    private int check; // 1 = da lam, 0 = chua lam
-
-    public int getCheck() {
-        return check;
-    }
-
-    public void setCheck(int check) {
-        this.check = check;
-    }
+    private boolean check;
 
     public Todojob() {
         Calendar calendar = Calendar.getInstance();
@@ -97,5 +89,13 @@ public class Todojob {
         this.score = score;
         Calendar calendar = Calendar.getInstance();
         this.lastModified = calendar.getTime();
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public boolean getCheck() {
+        return check;
     }
 }

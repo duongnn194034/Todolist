@@ -7,17 +7,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class TodojobController {
     @Autowired
     private TodojobService todojobService;
 
-    @GetMapping("/show/{limit}/{minscore}/{maxscore}")
-    public List<Todojob> show(@PathVariable int limit, @PathVariable long minscore, @PathVariable long maxscore) {
-        return this.todojobService.showJobs(limit, minscore, maxscore, 2);
+//    @GetMapping("/show/{limit}/{minscore}/{maxscore}")
+//    public List<Todojob> show(@PathVariable int limit, @PathVariable long minscore, @PathVariable long maxscore) {
+//        return this.todojobService.showJobs(limit, minscore, maxscore, true);
+//    }
+
+    @GetMapping("/")
+    public String index() {
+        return "Home page";
     }
 
 

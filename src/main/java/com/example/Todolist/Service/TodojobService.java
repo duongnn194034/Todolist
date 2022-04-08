@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,12 +40,12 @@ public class TodojobService {
         this.todojobRepository.deleteById(id);
     }
 
-    public List<Todojob> showJobs(int limit, long minScore, long maxScore, int check) { //check = 1 : CV da lam, check = 0, CV chua lam, else ca 2
-        Pageable pageable = PageRequest.of(0, limit);
-        if(check !=0 && check != 1)
-            return this.todojobRepository.findByScoreBetween(minScore, maxScore, pageable);
-        else
-            return this.todojobRepository.findByCheckAndByScoreBetween(check, minScore, maxScore, pageable);
-
-    }
+//    public List<Todojob> showJobs(int limit, long minScore, long maxScore, @RequestParam(required = false) Boolean check) {
+//        Pageable pageable = PageRequest.of(0, limit);
+//        if(check == null)
+//            return this.todojobRepository.findByScoreBetween(minScore, maxScore, pageable);
+//        else
+//            return this.todojobRepository.findByCheckAndByScoreBetween(check, minScore, maxScore, pageable);
+//
+//    }
 }

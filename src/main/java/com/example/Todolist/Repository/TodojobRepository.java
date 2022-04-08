@@ -14,6 +14,6 @@ public interface TodojobRepository extends MongoRepository<Todojob, String> {
     Optional<Todojob> findById(String ID);
     void deleteById(String id);
 
-    List<Todojob> findByScoreBetween(long from, long to, Pageable pageable);
-    List<Todojob> findByCheckAndByScoreBetween(int check, long from, long to, Pageable pageable);
+//    List<Todojob> findByScoreBetween(long from, long to, Pageable pageable);
+//    List<Todojob> findByCheckAndByScoreBetween(boolean check, long from, long to, Pageable pageable);
 }
