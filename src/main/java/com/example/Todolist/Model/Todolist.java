@@ -41,6 +41,7 @@ public class Todolist {
         Calendar calendar = Calendar.getInstance();
         this.createTime = calendar.getTime();
         this.lastModified = this.createTime;
+        this.check = job.getCheck();
     }
 
     public String getId() {

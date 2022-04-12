@@ -1,10 +1,12 @@
 package com.example.Todolist.Repository;
 
 import com.example.Todolist.Model.Todolist;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TodolistRepository {
@@ -13,7 +15,8 @@ public interface TodolistRepository {
     Todolist findByIdAndModify(String id, Update update);
 
     void deleteById(String id);
-    Todolist findOne(Criteria criteria);
+
+    List<Todolist> findCustom(long min, long max, boolean check);
 
     boolean existsById(String id);
 

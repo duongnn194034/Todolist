@@ -2,20 +2,13 @@ package com.example.Todolist.Repository;
 
 import com.example.Todolist.Model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 @Repository
 public class TodolistRepositoryImpl implements TodolistRepository {
@@ -46,14 +39,15 @@ public class TodolistRepositoryImpl implements TodolistRepository {
         mongoTemplate.findAndRemove(query, Todolist.class);
     }
 
-
-
     @Override
-    public Todolist findOne(Criteria criteria) {
+    public List<Todolist> findCustom(long min, long max, boolean check) {
         Query query = new Query();
-        query.addCriteria(criteria);
-        return mongoTemplate.findOne(query, Todolist.class);
+        query.addCriteria(Criteria.where("score").gte(min));
+        query.addCriteria(Criteria.where("score").lte(max));
+        query.addCriteria(Criteria.where("check").is(check));
+        return mongoTemplate.find(query, Todolist.class);
     }
+
 
     @Override
     public boolean existsById(String id) {
