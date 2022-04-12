@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Calendar;
 import java.util.Date;
 
-//
+
 @Document(collection = "Todolist")
 public class Todolist {
 
