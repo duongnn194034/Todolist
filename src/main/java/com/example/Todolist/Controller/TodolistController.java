@@ -41,7 +41,7 @@ public class TodolistController {
 
     @GetMapping("/")
     public String index() {
-        return "Home page";
+        return "<h1>Home page</h1>";
     }
 
 
