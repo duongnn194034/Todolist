@@ -7,8 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-@Document(collection = "Todojob")
-public class Todojob {
+@Document(collection = "Todolist")
+public class Todolist {
 
     @Id
     private String id;
@@ -19,13 +19,13 @@ public class Todojob {
     private long score;
     private boolean check;
 
-    public Todojob() {
+    public Todolist() {
         Calendar calendar = Calendar.getInstance();
         this.createTime = calendar.getTime();
         this.lastModified = this.createTime;
     }
 
-    public Todojob(String title, String description, long score) {
+    public Todolist(String title, String description, long score) {
         this.title = title;
         this.description = description;
         this.score = score;
@@ -34,7 +34,7 @@ public class Todojob {
         this.lastModified = this.createTime;
     }
 
-    public Todojob(Todojob job) {
+    public Todolist(Todolist job) {
         this.title = job.getTitle();
         this.description = job.getDescription();
         this.score = job.getScore();
