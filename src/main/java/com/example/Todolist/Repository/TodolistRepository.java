@@ -8,8 +8,6 @@ import java.util.List;
 public interface TodolistRepository {
     Todolist save(Todolist job) throws TodolistException;
 
-    Todolist findById(String id) throws TodolistException;
-
     Todolist findByIdAndModify(String id, Update update) throws TodolistException;
 
     void deleteById(String id) throws TodolistException;

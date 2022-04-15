@@ -74,11 +74,6 @@ public class TodolistController {
         return String.format("%s has been deleted", id);
     }
 
-    @RequestMapping("/find/{id}")
-    public Todolist findJ(@PathVariable String id) {
-        return this.todolistService.findJob(id);
-    }
-
     @RequestMapping("/test")
     public Todolist test() {
         return new Todolist("This is a test.", "Anything", 5);

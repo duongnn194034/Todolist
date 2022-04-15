@@ -2,11 +2,13 @@ package com.example.Todolist.Repository;
 
 import com.example.Todolist.Model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -18,15 +20,6 @@ public class TodolistRepositoryImpl implements TodolistRepository {
             return this.mongoTemplate.save(job, "Todolist");
         } catch (TodolistException tex) {
             throw new TodolistException("Error in add!");
-        }
-    }
-
-    @Override
-    public Todolist findById(String id) throws TodolistException {
-        try {
-            return this.mongoTemplate.findById(id, Todolist.class, "Todolist");
-        } catch (TodolistException tex) {
-            throw new TodolistException("Error in find!");
         }
     }
 
@@ -61,7 +54,7 @@ public class TodolistRepositoryImpl implements TodolistRepository {
             criteria.andOperator(Criteria.where("score").gte(min),
                     Criteria.where("score").lte(max),
                     Criteria.where("check").is(check));
-            query.addCriteria(criteria);
+            query.addCriteria(criteria).with(Sort.by(Sort.Direction.DESC, "score"));
             return mongoTemplate.find(query, Todolist.class);
         } catch (TodolistException tex) {
             throw new TodolistException("Error in findCustom!");

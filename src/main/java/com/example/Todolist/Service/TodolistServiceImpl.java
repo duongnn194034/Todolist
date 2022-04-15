@@ -44,12 +44,6 @@ public class TodolistServiceImpl implements TodolistService{
     }
 
     @Override
-    public Todolist findJob(String id) throws TodolistException {
-        return new Todolist(this.todolistRepository.findById(id));
-    }
-
-
-    @Override
     public boolean existJob(String id) throws TodolistException {
         return this.todolistRepository.existsById(id);
     }
