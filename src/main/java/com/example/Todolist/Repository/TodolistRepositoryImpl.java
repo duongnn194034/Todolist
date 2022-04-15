@@ -59,9 +59,10 @@ public class TodolistRepositoryImpl implements TodolistRepository {
     public List<Todolist> findCustom(long min, long max, boolean check) throws TodolistException {
         try {
             Query query = new Query();
-            query.addCriteria(Criteria.where("score").gte(min));
-            query.addCriteria(Criteria.where("score").lte(max));
-            query.addCriteria(Criteria.where("check").is(check));
+            Criteria criteria = new Criteria();
+            criteria.andOperator(Criteria.where("score").gte(min),
+                    Criteria.where("score").lte(max),
+                    Criteria.where("check").is(check));
             return mongoTemplate.find(query, Todolist.class);
         } catch (TodolistException tex) {
             throw new TodolistException("Error in findCustom!");
