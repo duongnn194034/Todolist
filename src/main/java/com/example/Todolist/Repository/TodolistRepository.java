@@ -1,24 +1,20 @@
 package com.example.Todolist.Repository;
 
 import com.example.Todolist.Model.Todolist;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TodolistRepository {
-    Todolist save(Todolist job);
-    Todolist findById(String ID);
-    Todolist findByIdAndModify(String id, Update update);
+    Todolist save(Todolist job) throws TodolistException;
+    Todolist findById(String ID) throws TodolistException;
+    Todolist findByIdAndModify(String id, Update update) throws TodolistException;
 
-    void deleteById(String id);
+    void deleteById(String id) throws TodolistException;
 
-    List<Todolist> findCustom(long min, long max, boolean check);
+    List<Todolist> findCustom(long min, long max, boolean check) throws TodolistException;
 
-    boolean existsById(String id);
+    boolean existsById(String id) throws TodolistException;
 
 
 //    List<Todojob> findByScoreBetween(long from, long to, Pageable pageable);
