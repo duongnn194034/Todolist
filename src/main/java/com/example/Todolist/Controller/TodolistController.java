@@ -33,9 +33,8 @@ public class TodolistController {
                                @PathVariable long min,
                                @PathVariable long max,
                                @PathVariable boolean check) {
-        Pageable pageable = PageRequest.of(0, limit);
         String html = "";
-        List<Todolist> list = this.todolistService.getJobList(min, max, check);
+        List<Todolist> list = this.todolistService.getJobList(limit, min, max, check);
         html += "<table style=\"border:1px solid black;\">";
         html += "<tr>";
         html += "<th style=\"border:1px solid black;\">ID</th>";

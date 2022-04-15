@@ -2,6 +2,7 @@ package com.example.Todolist.Repository;
 
 import com.example.Todolist.Model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -47,14 +48,16 @@ public class TodolistRepositoryImpl implements TodolistRepository {
     }
 
     @Override
-    public List<Todolist> findCustom(long min, long max, boolean check) throws TodolistException {
+    public List<Todolist> findCustom(int limit, long min, long max, boolean check) throws TodolistException {
         try {
             Query query = new Query();
             Criteria criteria = new Criteria();
             criteria.andOperator(Criteria.where("score").gte(min),
                     Criteria.where("score").lte(max),
                     Criteria.where("check").is(check));
-            query.addCriteria(criteria).with(Sort.by(Sort.Direction.DESC, "score"));
+            query.addCriteria(criteria)
+                    .with(PageRequest.of(0, limit))
+                    .with(Sort.by(Sort.Direction.DESC, "score"));
             return mongoTemplate.find(query, Todolist.class);
         } catch (TodolistException tex) {
             throw new TodolistException("Error in findCustom!");

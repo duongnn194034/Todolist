@@ -49,7 +49,7 @@ public class TodolistServiceImpl implements TodolistService{
     }
 
     @Override
-    public List<Todolist> getJobList(long min, long max, boolean check) throws TodolistException {
-        return this.todolistRepository.findCustom(min, max, check);
+    public List<Todolist> getJobList(int limit, long min, long max, boolean check) throws TodolistException {
+        return this.todolistRepository.findCustom(limit, min, max, check);
     }
 }

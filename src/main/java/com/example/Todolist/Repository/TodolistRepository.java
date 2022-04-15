@@ -12,7 +12,7 @@ public interface TodolistRepository {
 
     void deleteById(String id) throws TodolistException;
 
-    List<Todolist> findCustom(long min, long max, boolean check) throws TodolistException;
+    List<Todolist> findCustom(int limit, long min, long max, boolean check) throws TodolistException;
 
     boolean existsById(String id) throws TodolistException;
 
