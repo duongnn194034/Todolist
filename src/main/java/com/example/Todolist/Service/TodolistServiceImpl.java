@@ -21,8 +21,8 @@ public class TodolistServiceImpl implements TodolistService{
     }
 
     @Override
-    public Todolist addJob(String title, String description, long score) throws TodolistException {
-        Todolist job = new Todolist(title, description, score);
+    public Todolist addJob(String title, String description, long score, boolean check) throws TodolistException {
+        Todolist job = new Todolist(title, description, score, check);
         return this.todolistRepository.save(job);
     }
 

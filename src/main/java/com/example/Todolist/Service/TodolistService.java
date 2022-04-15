@@ -6,7 +6,7 @@ import com.example.Todolist.Repository.TodolistException;
 import java.util.List;
 
 public interface TodolistService {
-    Todolist addJob(String title, String description, long score) throws TodolistException;
+    Todolist addJob(String title, String description, long score, boolean check) throws TodolistException;
 
     Todolist modifyJob(String id, String title, String description, long score, boolean check) throws TodolistException;
 

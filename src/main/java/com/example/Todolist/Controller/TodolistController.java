@@ -16,9 +16,12 @@ public class TodolistController {
     @Autowired
     private TodolistService todolistService;
 
-    @RequestMapping("/add/{title}/{description}/{score}")
-    public Todolist add(@PathVariable String title, @PathVariable String description, @PathVariable long score) {
-        return this.todolistService.addJob(title, description, score);
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public Todolist add(@RequestParam String title,
+                        @RequestParam String description,
+                        @RequestParam long score,
+                        @RequestParam(name = "check", required = false, defaultValue = "false") boolean check) {
+        return this.todolistService.addJob(title, description, score, check);
     }
 
     @RequestMapping("/exist/{id}")
@@ -26,56 +29,34 @@ public class TodolistController {
         return this.todolistService.existJob(id);
     }
 
-    @RequestMapping("/show/{limit}/{min}/{max}/{check}")
-    @ResponseBody
-    public String func(Model model,
-                               @PathVariable int limit,
-                               @PathVariable long min,
-                               @PathVariable long max,
-                               @PathVariable boolean check) {
-        String html = "";
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public List<Todolist> func(Model model,
+                               @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
+                               @RequestParam(name = "min", required = false, defaultValue = "1") long min,
+                               @RequestParam(name = "max", required = false, defaultValue = "100") long max,
+                               @RequestParam(name = "check", required = false, defaultValue = "false") boolean check) {
         List<Todolist> list = this.todolistService.getJobList(limit, min, max, check);
-        html += "<table style=\"border:1px solid black;\">";
-        html += "<tr>";
-        html += "<th style=\"border:1px solid black;\">ID</th>";
-        html += "<th style=\"border:1px solid black;\">Title</th>";
-        html += "<th style=\"border:1px solid black;\">Description</th>";
-        html += "<th style=\"border:1px solid black;\">Create time</th>";
-        html += "<th style=\"border:1px solid black;\">Last modified</th>";
-        html += "<th style=\"border:1px solid black;\">Score</th>";
-        html += "<th style=\"border:1px solid black;\">Check</th>";
-        html += "</tr>";
-        for(Todolist index : list)
-            html += "<tr>" + "<td style=\"border:1px solid black;\">" + index.getId() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getTitle() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getDescription() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getCreateTime() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getLastModified() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getScore() + "</td>"
-                    + "<td style=\"border:1px solid black;\">" + index.getCheck() + "</td>"
-                    + "</tr>";
-        html += "</table>";
-        return html;
+        return list;
     }
 
-    @RequestMapping("/modify/{id}/{title}/{description}/{score}/{check}")
-    public Todolist function(@PathVariable String id,
-                             @PathVariable String title,
-                             @PathVariable String description,
-                             @PathVariable long score,
-                             @PathVariable boolean check) {
+    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
+    public Todolist function(@RequestParam(name = "id") String id,
+                             @RequestParam(name = "title") String title,
+                             @RequestParam(name = "description") String description,
+                             @RequestParam(name = "score") long score,
+                             @RequestParam(name = "check", defaultValue = "false") boolean check) {
         return this.todolistService.modifyJob(id, title, description, score, check);
     }
 
-    @RequestMapping("/delete/{id}")
-    public String del(@PathVariable String id) {
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    public String del(@RequestParam(name = "id") String id) {
         this.todolistService.deleteJob(id);
         return String.format("%s has been deleted", id);
     }
 
     @RequestMapping("/test")
     public Todolist test() {
-        return new Todolist("This is a test.", "Anything", 5);
+        return new Todolist("This is a test.", "Anything", 5, false);
     }
 
     @GetMapping("/")

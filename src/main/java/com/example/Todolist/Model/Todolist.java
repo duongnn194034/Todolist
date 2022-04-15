@@ -25,13 +25,14 @@ public class Todolist {
         this.lastModified = this.createTime;
     }
 
-    public Todolist(String title, String description, long score) {
+    public Todolist(String title, String description, long score, boolean check) {
         this.title = title;
         this.description = description;
         this.score = score;
         Calendar calendar = Calendar.getInstance();
         this.createTime = calendar.getTime();
         this.lastModified = this.createTime;
+        this.check = check;
     }
 
     public Todolist(Todolist job) {
