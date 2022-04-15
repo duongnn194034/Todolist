@@ -15,22 +15,20 @@ public class TodolistRepositoryImpl implements TodolistRepository {
     @Override
     public Todolist save(Todolist job) throws TodolistException {
         try {
-            return mongoTemplate.save(job, "Todolist");
+            return this.mongoTemplate.save(job, "Todolist");
         } catch (TodolistException tex) {
             throw new TodolistException("Error in add!");
         }
     }
 
     @Override
-    public Todolist findById(String ID) throws TodolistException {
+    public Todolist findById(String id) throws TodolistException {
         try {
-            return mongoTemplate.findById(ID, Todolist.class);
+            return this.mongoTemplate.findById(id, Todolist.class, "Todolist");
         } catch (TodolistException tex) {
             throw new TodolistException("Error in find!");
         }
     }
-
-
 
     @Override
     public Todolist findByIdAndModify(String id, Update update) throws TodolistException {

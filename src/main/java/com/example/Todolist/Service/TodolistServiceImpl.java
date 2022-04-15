@@ -15,6 +15,7 @@ public class TodolistServiceImpl implements TodolistService{
     @Autowired
     private final TodolistRepository todolistRepository;
 
+    @Autowired
     public TodolistServiceImpl(TodolistRepository todolistRepository) {
         this.todolistRepository = todolistRepository;
     }
@@ -22,8 +23,7 @@ public class TodolistServiceImpl implements TodolistService{
     @Override
     public Todolist addJob(String title, String description, long score) throws TodolistException {
         Todolist job = new Todolist(title, description, score);
-        this.todolistRepository.save(job);
-        return job;
+        return this.todolistRepository.save(job);
     }
 
     @Override
@@ -45,8 +45,9 @@ public class TodolistServiceImpl implements TodolistService{
 
     @Override
     public Todolist findJob(String id) throws TodolistException {
-        return this.todolistRepository.findById(id);
+        return new Todolist(this.todolistRepository.findById(id));
     }
+
 
     @Override
     public boolean existJob(String id) throws TodolistException {

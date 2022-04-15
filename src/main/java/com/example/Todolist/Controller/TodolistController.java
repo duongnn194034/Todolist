@@ -16,27 +16,34 @@ public class TodolistController {
     @Autowired
     private TodolistService todolistService;
 
-    @RequestMapping("/add/{title}/{description}/{score}") //Hoạt động
+    @RequestMapping("/add/{title}/{description}/{score}")
     public Todolist add(@PathVariable String title, @PathVariable String description, @PathVariable long score) {
         return this.todolistService.addJob(title, description, score);
     }
 
-    @RequestMapping("/exist/{id}") //Hoạt động
+    @RequestMapping("/exist/{id}")
     public boolean foo(@PathVariable String id) {
         return this.todolistService.existJob(id);
     }
 
-    @RequestMapping("/show/{limit}/{min}/{max}/{check}") //Không hoạt động
-    public List<Todolist> func(Model model,
+    @RequestMapping("/show/{limit}/{min}/{max}/{check}")
+    @ResponseBody
+    public String func(Model model,
                                @PathVariable int limit,
                                @PathVariable long min,
                                @PathVariable long max,
                                @PathVariable boolean check) {
         Pageable pageable = PageRequest.of(0, limit);
-        return this.todolistService.getJobList(min, max, check);
+        String html = "";
+        List<Todolist> list = this.todolistService.getJobList(min, max, check);
+        html += "<ul>";
+        for(Todolist index : list)
+            html += "<li>" + index.toString() + "</li>";
+        html += "</ul>";
+        return html;
     }
 
-    @RequestMapping("/modify/{id}/{title}/{description}/{score}/{check}") //Không hiển thị giao diện (lỗi 500) nhưng vẫn thao tác database
+    @RequestMapping("/modify/{id}/{title}/{description}/{score}/{check}")
     public Todolist function(@PathVariable String id,
                              @PathVariable String title,
                              @PathVariable String description,
@@ -45,16 +52,20 @@ public class TodolistController {
         return this.todolistService.modifyJob(id, title, description, score, check);
     }
 
-    @RequestMapping("/delete/{id}") //Hoạt động
+    @RequestMapping("/delete/{id}")
     public String del(@PathVariable String id) {
         this.todolistService.deleteJob(id);
         return String.format("%s has been deleted", id);
     }
 
-    @RequestMapping("/find/{id}") //Không hoạt động trong trường hợp tìm thấy
-    @ResponseBody
-    public Todolist findJ (@PathVariable String id) {
+    @RequestMapping("/find/{id}")
+    public Todolist findJ(@PathVariable String id) {
         return this.todolistService.findJob(id);
+    }
+
+    @RequestMapping("/test")
+    public Todolist test() {
+        return new Todolist("This is a test.", "Anything", 5);
     }
 
     @GetMapping("/")

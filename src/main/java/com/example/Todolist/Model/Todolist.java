@@ -14,7 +14,7 @@ public class Todolist {
     private String id;
     private String title;
     private String description;
-    private final Date createTime;
+    private Date createTime;
     private Date lastModified;
     private long score;
     private boolean check;
@@ -82,6 +82,14 @@ public class Todolist {
         return lastModified;
     }
 
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
     public long getScore() {
         return score;
     }
@@ -98,5 +106,18 @@ public class Todolist {
 
     public boolean getCheck() {
         return check;
+    }
+
+    @Override
+    public String toString() {
+        return "Todolist{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", createTime=" + createTime +
+                ", lastModified=" + lastModified +
+                ", score=" + score +
+                ", check=" + check +
+                '}';
     }
 }
