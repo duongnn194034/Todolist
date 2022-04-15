@@ -61,6 +61,7 @@ public class TodolistRepositoryImpl implements TodolistRepository {
             criteria.andOperator(Criteria.where("score").gte(min),
                     Criteria.where("score").lte(max),
                     Criteria.where("check").is(check));
+            query.addCriteria(criteria);
             return mongoTemplate.find(query, Todolist.class);
         } catch (TodolistException tex) {
             throw new TodolistException("Error in findCustom!");

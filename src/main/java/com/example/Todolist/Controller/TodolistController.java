@@ -36,10 +36,26 @@ public class TodolistController {
         Pageable pageable = PageRequest.of(0, limit);
         String html = "";
         List<Todolist> list = this.todolistService.getJobList(min, max, check);
-        html += "<ul>";
+        html += "<table style=\"border:1px solid black;\">";
+        html += "<tr>";
+        html += "<th style=\"border:1px solid black;\">ID</th>";
+        html += "<th style=\"border:1px solid black;\">Title</th>";
+        html += "<th style=\"border:1px solid black;\">Description</th>";
+        html += "<th style=\"border:1px solid black;\">Create time</th>";
+        html += "<th style=\"border:1px solid black;\">Last modified</th>";
+        html += "<th style=\"border:1px solid black;\">Score</th>";
+        html += "<th style=\"border:1px solid black;\">Check</th>";
+        html += "</tr>";
         for(Todolist index : list)
-            html += "<li>" + index.toString() + "</li>";
-        html += "</ul>";
+            html += "<tr>" + "<td style=\"border:1px solid black;\">" + index.getId() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getTitle() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getDescription() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getCreateTime() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getLastModified() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getScore() + "</td>"
+                    + "<td style=\"border:1px solid black;\">" + index.getCheck() + "</td>"
+                    + "</tr>";
+        html += "</table>";
         return html;
     }
 
