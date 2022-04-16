@@ -13,7 +13,7 @@ public class TodolistController {
     @Autowired
     private TodolistService todolistService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Todolist add(@RequestParam String title,
                         @RequestParam String description,
                         @RequestParam long score,
@@ -21,7 +21,7 @@ public class TodolistController {
         return this.todolistService.addJob(title, description, score, check);
     }
 
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Todolist> find(Model model,
                                @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
                                @RequestParam(name = "min", required = false, defaultValue = "1") long min,
@@ -30,7 +30,7 @@ public class TodolistController {
         return this.todolistService.getJobList(limit, min, max, check);
     }
 
-    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
+    @RequestMapping(value = "/list", method = RequestMethod.PUT)
     public Todolist modify(@RequestParam(name = "id") String id,
                              @RequestParam(name = "title") String title,
                              @RequestParam(name = "description") String description,
@@ -39,15 +39,10 @@ public class TodolistController {
         return this.todolistService.modifyJob(id, title, description, score, check);
     }
 
-    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/list",method = RequestMethod.DELETE)
     public String del(@RequestParam(name = "id") String id) {
         this.todolistService.deleteJob(id);
         return String.format("%s has been deleted", id);
-    }
-
-    @RequestMapping("/test")
-    public Todolist test() {
-        return new Todolist("This is a test.", "Anything", 5, false);
     }
 
     @GetMapping("/")
