@@ -15,8 +15,4 @@ public interface TodolistRepository {
     List<Todolist> findCustom(int limit, long min, long max, boolean check) throws TodolistException;
 
     boolean existsById(String id) throws TodolistException;
-
-
-//    List<Todojob> findByScoreBetween(long from, long to, Pageable pageable);
-//    List<Todojob> findByCheckAndByScoreBetween(boolean check, long from, long to, Pageable pageable);
 }
