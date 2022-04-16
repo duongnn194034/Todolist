@@ -2,10 +2,7 @@ package com.example.Todolist.Controller;
 
 import com.example.Todolist.Model.Todolist;
 import com.example.Todolist.Service.TodolistService;
-import com.example.Todolist.Service.TodolistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
