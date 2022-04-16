@@ -42,7 +42,7 @@ public class TodolistController {
     @RequestMapping(value = "/list",method = RequestMethod.DELETE)
     public String del(@RequestParam(name = "id") String id) {
         this.todolistService.deleteJob(id);
-        return String.format("%s has been deleted", id);
+        return String.format("%s has been deleted!", id);
     }
 
     @GetMapping("/")
