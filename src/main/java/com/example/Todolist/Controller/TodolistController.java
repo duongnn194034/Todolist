@@ -21,11 +21,6 @@ public class TodolistController {
         return this.todolistService.addJob(title, description, score, check);
     }
 
-    @RequestMapping("/exist/{id}")
-    public boolean foo(@PathVariable String id) {
-        return this.todolistService.existJob(id);
-    }
-
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public List<Todolist> find(Model model,
                                @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
