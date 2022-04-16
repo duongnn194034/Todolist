@@ -30,17 +30,16 @@ public class TodolistController {
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public List<Todolist> func(Model model,
+    public List<Todolist> find(Model model,
                                @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
                                @RequestParam(name = "min", required = false, defaultValue = "1") long min,
                                @RequestParam(name = "max", required = false, defaultValue = "100") long max,
                                @RequestParam(name = "check", required = false, defaultValue = "false") boolean check) {
-        List<Todolist> list = this.todolistService.getJobList(limit, min, max, check);
-        return list;
+        return this.todolistService.getJobList(limit, min, max, check);
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.PUT)
-    public Todolist function(@RequestParam(name = "id") String id,
+    public Todolist modify(@RequestParam(name = "id") String id,
                              @RequestParam(name = "title") String title,
                              @RequestParam(name = "description") String description,
                              @RequestParam(name = "score") long score,
