@@ -12,7 +12,5 @@ public interface TodolistService {
 
     void deleteJob(String id) throws TodolistException;
 
-    boolean existJob(String id) throws TodolistException;
-
     List<Todolist> getJobList(int limit, long min, long max, boolean check) throws TodolistException;
 }

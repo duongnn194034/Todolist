@@ -20,61 +20,50 @@ public class TodolistRepositoryImpl implements TodolistRepository {
         try {
             return this.mongoTemplate.save(job, "Todolist");
         } catch (TodolistException tex) {
-            throw new TodolistException("Error in add!");
+            throw new TodolistException("Error in adding!");
         }
     }
 
     @Override
-    public Todolist findByIdAndModify(String id, Update update) throws TodolistException {
+    public Todolist findOneAndModify(Criteria criteria, Update update) throws TodolistException {
         try {
             Query query = new Query();
-            query.addCriteria(Criteria.where("id").is(id));
-            return mongoTemplate.findAndModify(query, update, Todolist.class);
+            query.addCriteria(criteria);
+            return this.mongoTemplate.findAndModify(query, update, Todolist.class);
         } catch (TodolistException tex) {
-            throw new TodolistException("Error in modify!");
-        }
-    }
-
-
-    @Override
-    public void deleteById(String id) throws TodolistException {
-        try {
-            Query query = new Query();
-            query.addCriteria(Criteria.where("id").is(id));
-            mongoTemplate.findAndRemove(query, Todolist.class);
-        } catch (TodolistException tex) {
-            throw new TodolistException("Error in delete!");
+            throw new TodolistException("Error in modifying!");
         }
     }
 
     @Override
-    public List<Todolist> findCustom(int limit, long min, long max, boolean check) throws TodolistException {
+    public void deleteOne(Criteria criteria) {
         try {
-            Query query = new Query();
-            Criteria criteria = new Criteria();
-            criteria.andOperator(Criteria.where("score").gte(min),
-                    Criteria.where("score").lte(max),
-                    Criteria.where("check").is(check));
-            query.addCriteria(criteria)
-                    .with(PageRequest.of(0, limit))
-                    .with(Sort.by(Sort.Direction.DESC, "score"));
-            return mongoTemplate.find(query, Todolist.class);
+            Query query = new Query(criteria);
+            this.mongoTemplate.findAndRemove(query, Todolist.class);
         } catch (TodolistException tex) {
-            throw new TodolistException("Error in findCustom!");
+            throw new TodolistException("Error in deleting!");
         }
     }
-
 
     @Override
-    public boolean existsById(String id) throws TodolistException {
+    public Todolist findOne(Criteria criteria) throws TodolistException {
         try {
-            Query query = new Query();
-            query.addCriteria(Criteria.where("id").is(id));
-            return mongoTemplate.exists(query, Todolist.class);
+            Query query = new Query(criteria);
+            return this.mongoTemplate.findOne(query, Todolist.class);
         } catch (TodolistException tex) {
-            throw new TodolistException("Error in exists!");
+            throw new TodolistException("Error in findOne!");
         }
     }
+
+    @Override
+    public List<Todolist> find(Query query) throws TodolistException {
+        try {
+            return this.mongoTemplate.find(query, Todolist.class);
+        } catch (TodolistException tex) {
+            throw new TodolistException("Error in finding!");
+        }
+    }
+
 
     @Autowired
     private MongoTemplate mongoTemplate;
