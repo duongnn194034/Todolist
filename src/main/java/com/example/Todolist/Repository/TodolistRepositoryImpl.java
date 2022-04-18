@@ -46,9 +46,8 @@ public class TodolistRepositoryImpl implements TodolistRepository {
     }
 
     @Override
-    public Todolist findOne(Criteria criteria) throws TodolistException {
+    public Todolist findOne(Query query) throws TodolistException {
         try {
-            Query query = new Query(criteria);
             return this.mongoTemplate.findOne(query, Todolist.class);
         } catch (TodolistException tex) {
             throw new TodolistException("Error in findOne!");

@@ -10,7 +10,7 @@ import java.util.List;
 public interface TodolistRepository {
     Todolist save(Todolist job) throws TodolistException;
 
-    Todolist findOne(Criteria criteria) throws TodolistException;
+    Todolist findOne(Query query) throws TodolistException;
 
     List<Todolist> find(Query query) throws TodolistException;
 
