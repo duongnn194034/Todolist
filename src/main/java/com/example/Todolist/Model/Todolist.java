@@ -83,14 +83,6 @@ public class Todolist {
         return lastModified;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
-
     public long getScore() {
         return score;
     }
